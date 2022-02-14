@@ -4,11 +4,16 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <script src="https://kit.fontawesome.com/864a6dff14.js" crossorigin="anonymous"></script>
   <script src="./src/bg.js" defer></script>
   <script src="./src/profile.js" defer></script>
-  <script src="./src/date_time.js" defer></script>
+  <script src="./src/date-time.js" defer></script>
   <script src="./src/weather.js" defer></script>
+  <script src="./src/claculator.js" defer></script>
+  <script src="./src/drawing-pad.js" defer></script>
+  <script src="./src/todo.js" defer></script>
+
   <link rel="stylesheet" href="./style/style.css">
   <title>CUBE</title>
 </head>
@@ -31,9 +36,7 @@
                 <i class="fas fa-plus"></i>
               </label>
             </div>
-            <div class="img__preview">
-              <img id="imgPreview" src="./img/me.jpg">
-            </div>
+            <div class="img__preview"></div>
           </div>
           <form class="login__form">
             <input
@@ -50,13 +53,12 @@
         </div>
         <div class="get__weather">
           <div class="temperture">
-            <span class="locate">Bucheon-si</span>
-            <span class="temp">-10 ℃</span>
+            <span class="locate">--</span>
+            <span class="temp">--</span>
           </div>
           <div class="weather">
-            <span class="wea__text">sunny</span>
+            <span class="wea__text">--</span>
             <span class="wea__icon">
-              <img src="./img/sunny.png" alt="sunny">
             </span>
           </div>
         </div>
@@ -86,7 +88,7 @@
         </div> 
       </section>
       <section class="desk__middle">
-        <canvas></canvas>
+        <canvas class="jsCanvas"></canvas>
         <section class="controls">
           <div class="control__left">
             <button class="jsMode">Fill</button>
@@ -96,27 +98,39 @@
           </div>
           <div class="control__right">
             <div class="controls__colors">
-              <div class="jsColor controls__color"
-              style="background-color: var(--color-red);"></div>
-              <div class="jsColor controls__color"
-              style="background-color: var(--color-orange);"></div>
-              <div class="jsColor controls__color"
-              style="background-color: var(--color-green);"></div>
-              <div class="jsColor controls__color"
-              style="background-color: var(--color-blue);"></div>
-              <div class="jsColor controls__color"
-              style="background-color: var(--color-purple);"></div>
-              <div class="jsColor controls__color"
-              style="background-color: var(--color-grey);"></div>
+              <div
+                class="jsColor controls__color"
+                style="background-color: #ff8f8f;">
+              </div>
+              <div
+                class="jsColor controls__color"
+                style="background-color: #ffb967;">
+              </div>
+              <div
+                class="jsColor controls__color"
+                style="background-color: #98ea7b;">
+              </div>
+              <div
+                class="jsColor controls__color"
+                style="background-color: #82c3ff;">
+              </div>
+              <div
+                class="jsColor controls__color"
+                style="background-color: #b69df6;">
+              </div>
+              <div
+                class="jsColor controls__color"
+                style="background-color: #555;">
+              </div>
             </div>
             <div class="controls__range">
               <input
-              type="range"
-              class="jsRange"
-              min="0.1"
-              max="5"
-              value="2.5" 
-              step="0.1">
+                type="range"
+                class="jsRange"
+                min="0.1"
+                max="5"
+                value="2.5" 
+                step="0.1">
             </div>
           </div>
         </section>
@@ -127,16 +141,7 @@
             type="text"
             placeholder="Write to do and press Enter">
         </form>
-        <ul class="todo__list">
-          <li>
-            <label class="check">
-              <input type="checkbox">
-              <span class="icon-check"></span>
-            </label>
-            <span class="text">조깅하기</span>
-            <img src="./img/delete.svg" alt="delete">
-          </li>
-        </ul>
+        <ul class="todo__list"></ul>
       </section>
     </section>
   </main>

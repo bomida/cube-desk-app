@@ -10,6 +10,7 @@
 
   <style>
     .profile {
+      width: 200px;
       padding: 20px;
       display: flex;
       align-items: center;
@@ -19,7 +20,7 @@
 
     .img__upload {
       position: relative;
-      max-width: 40px;
+      max-width: 60px;
     }
 
     .img__upload .img__edit {
@@ -32,19 +33,20 @@
     }
 
     .img__upload .img__edit label {
-      width: 40px;
-      height: 40px;
+      width: 60px;
+      height: 60px;
       display: flex;
       justify-content: center;
       align-items: center;
       border-radius: 50%;
       cursor: pointer;
-      transition: var(--animation-duration);
+      background-color: bisque;
+      transition: .2s ease;
     }
 
     .img__upload .img__preview {
-      width: 40px;
-      height: 40px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       overflow: hidden;
     }
@@ -60,9 +62,9 @@
 
     .fas {
       font-size: 26px;
-      color: var(--color-white);
+      color: #555;
       cursor: pointer;
-      transition: var(--animation-duration);
+      transition: .2s ease;
     }
 
     .fas:hover {
@@ -83,7 +85,7 @@
         </label>
       </div>
       <div class="img__preview">
-        <!-- <img id="imgPreview"> -->
+        <img id="imgPreview">
       </div>
     </div>
   </div>
@@ -92,19 +94,27 @@
       const imgInput = document.querySelector('#imgInput');
       const imgInputLabel = document.querySelector('.img__input');
       const plusIcon = document.querySelector('.fas');
-      const imgPreview = document.querySelector('#imgPreview');
+      const imgPreview = document.querySelector('.img__preview');
 
-      imgInput.addEventListener('change', function() {
+      imgInput.addEventListener('change', () => {
         console.log(imgInput.files);
         const reader = new FileReader();
-        reader.onload = function () {
-          const img = new Image();
-          imgPreview.src = reader.result;
+        reader.onload = () => {
+          localStorage.setItem('profile_img', reader.result);
+          const img = document.querySelector('#imgPreview');
+          img.src = reader.result;
           imgPreview.appendChild(img);
+          imgInputLabel.style.visibility = 'hidden';
           plusIcon.style.visibility = 'hidden';
         }
         reader.readAsDataURL(imgInput.files[0]);
-      }, false);
+      });
+
+      if (savedImgData === null) {
+        loginForm.addEventListener('submit', onLoginSubmit);
+      } else {
+        printUsername(savedUsername);
+      }
     </script>
 </body>
 </html>

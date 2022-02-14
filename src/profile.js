@@ -10,24 +10,24 @@ const loginThumbnail = document.querySelector('.login__thumb');
 const loginInput = document.querySelector('.login__input');
 const loginName = document.querySelector('.login__name');
 
+const IMGDATA_KEY = 'profile_img';
 const USERNAME_KEY = 'username';
 const HIDE_CLASSNAME = 'hide';
 
-
-
-imgInput.addEventListener('change', function(event) {
+imgInput.addEventListener('change', () => {
   console.log(imgInput.files);
   const reader = new FileReader();
-  reader.onload = function () {
+  reader.onload = () => {
+    localStorage.setItem(IMGDATA_KEY, reader.result);
     const img = new Image();
     img.setAttribute('id', 'imgPreview');
     img.src = reader.result;
     imgPreview.appendChild(img);
+    imgInputLabel.style.visibility = 'hidden';
     plusIcon.style.visibility = 'hidden';
   }
   reader.readAsDataURL(imgInput.files[0]);
-}, false);
-
+});
 
 function onLoginSubmit(event) {
   event.preventDefault();
@@ -40,12 +40,11 @@ function onLoginSubmit(event) {
 function printUsername(username) {
   loginForm.innerHTML = `
     <span class="login__name">${username}</span>`;
-  // loginInput.classList.add(HIDE_CLASSNAME);
 }
 
 const savedUsername = localStorage.getItem(USERNAME_KEY);
 
-if(savedUsername === null) {
+if (savedUsername === null) {
   loginForm.addEventListener('submit', onLoginSubmit);
 } else {
   printUsername(savedUsername);
