@@ -1,8 +1,11 @@
 'use strict';
 
-let docStyle = document.documentElement.style;
-
-    document.addEventListener('mousemove', function(event) {
-      docStyle.setProperty('--mouse-x', event.clientX);
-      docStyle.setProperty('--mouse-y', event.clientY);
+export default class MoveBGElement {
+  constructor() {
+    this.docStyle = document.documentElement.style;
+    document.addEventListener('mousemove', event => {
+      this.docStyle.setProperty('--mouse-x', event.clientX);
+      this.docStyle.setProperty('--mouse-y', event.clientY);
     });
+  }
+}
