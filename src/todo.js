@@ -23,14 +23,19 @@ function paintTodo(newTodo) {
   const li = document.createElement('li');
   const span = document.createElement('span');
   const deleteImg = document.createElement('img');
+
+  li.id = newTodo.id;
   span.innerText = newTodo.text;
   deleteImg.setAttribute('src', './img/delete.svg');
+  deleteImg.setAttribute('class', 'deleteImg');
   li.innerHTML = `
   <label class="check">
     <input type="checkbox">
     <span class="icon-check"></span>
   </label>
   `;
+
+  deleteImg.addEventListener('click', deleteToDos);
   li.appendChild(span);
   li.appendChild(deleteImg);
   todoList.appendChild(li);
