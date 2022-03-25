@@ -10,7 +10,7 @@
 
   <style>
     .profile {
-      width: 200px;
+      /* width: 200px; */
       padding: 20px;
       display: flex;
       align-items: center;
@@ -70,6 +70,27 @@
     .fas:hover {
       transform: rotate(90deg);
     }
+
+    .login__input {
+      all: unset;
+      display: inline-block;
+      width: 120px;
+      padding: 5px;
+      margin-left: 10px;
+      font-size: 20px;
+      color: #222;
+    }
+
+    .login__input::placeholder {
+      font-size: 20px;
+    }
+
+    .login__name {
+      display: inline-block;
+      margin-left: 10px;
+      font-size: 20px;
+      color: #222;
+    }
   </style>
 </head>
 <body>
@@ -79,42 +100,88 @@
         <input
           type='file'
           id="imgInput"
-          accept=".png, .jpg, .jpeg"/>
+          accept=".png, .jpg, .jpeg, .gif"/>
         <label for="imgInput" class="img__input">
           <i class="fas fa-plus"></i>
         </label>
       </div>
-      <div class="img__preview">
-        <img id="imgPreview">
-      </div>
+      <div class="img__preview"></div>
     </div>
+    <form class="login__form">
+      <input
+        required
+        type="text"
+        maxlength="10"
+        placeholder="Your name"
+        class="login__input">
+    </form>
   </div>
+  <script>
+    // load Img
+const imgInput = document.querySelector('#imgInput');
+const imgInputLabel = document.querySelector('.img__input');
+const plusIcon = document.querySelector('.fas');
+const imgPreview = document.querySelector('.img__preview');
 
-    <script>
-      const imgInput = document.querySelector('#imgInput');
-      const imgInputLabel = document.querySelector('.img__input');
-      const plusIcon = document.querySelector('.fas');
-      const imgPreview = document.querySelector('.img__preview');
+// saved Name
+const loginForm = document.querySelector('.login__form');
+const loginThumbnail = document.querySelector('.login__thumb');
+const loginInput = document.querySelector('.login__input');
+const loginName = document.querySelector('.login__name');
 
-      imgInput.addEventListener('change', () => {
-        console.log(imgInput.files);
-        const reader = new FileReader();
-        reader.onload = () => {
-          localStorage.setItem('profile_img', reader.result);
-          const img = document.querySelector('#imgPreview');
-          img.src = reader.result;
-          imgPreview.appendChild(img);
-          imgInputLabel.style.visibility = 'hidden';
-          plusIcon.style.visibility = 'hidden';
-        }
-        reader.readAsDataURL(imgInput.files[0]);
-      });
+// keyword
+const IMGDATA_KEY = 'profile_img';
+const USERNAME_KEY = 'username';
+const HIDE_CLASSNAME = 'hide';
 
-      if (savedImgData === null) {
-        loginForm.addEventListener('submit', onLoginSubmit);
-      } else {
-        printUsername(savedUsername);
-      }
-    </script>
+// UserImg
+function onLoadImg() {
+  console.log(imgInput.files);
+  const reader = new FileReader();
+  reader.onload = () => {
+    localStorage.setItem(IMGDATA_KEY, reader.result);
+    const img = new Image();
+    img.setAttribute('id', 'imgPreview');
+    img.src = reader.result;
+    imgPreview.appendChild(img);
+  }
+  reader.readAsDataURL(imgInput.files[0]);
+}
+
+function prinImg(savedImgData) {
+  imgPreview.innerHTML = `<img src="${savedImgData}" alt="thumbnail">`;
+  imgInputLabel.style.visibility = 'hidden';
+  plusIcon.style.visibility = 'hidden';
+}
+const savedImgData = localStorage.getItem(IMGDATA_KEY);
+
+// UserName
+function onLoginSubmit(event) {
+  event.preventDefault();
+  loginInput.classList.add(HIDE_CLASSNAME);
+  const username = loginInput.value;
+  localStorage.setItem(USERNAME_KEY, username);
+  printUsername(username);
+}
+
+function printUsername(username) {
+  loginForm.innerHTML = `
+    <span class="login__name">${username}</span>`;
+}
+
+const savedUsername = localStorage.getItem(USERNAME_KEY);
+
+if (savedUsername === null) {
+  loginForm.addEventListener('submit', onLoginSubmit);
+} else {
+  printUsername(savedUsername);
+}
+
+if (savedImgData === null) {
+  imgInput.addEventListener('change', onLoadImg);
+} else {
+  prinImg(savedImgData);
+}
+  </script>
 </body>
 </html>

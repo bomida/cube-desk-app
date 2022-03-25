@@ -124,6 +124,7 @@ header {
   font-size: 26px;
   color: var(--color-white);
   cursor: pointer;
+  visibility: visible;
   transition: var(--animation-duration);
 }
 
