@@ -1,39 +1,39 @@
 export default class Calculator {
-  constructor(previousOperandText, currentOperandText) {
-    this.previousOperandText = previousOperandText
-    this.currentOperandText = currentOperandText
+  constructor(prevOperandText, currOperandText) {
+    this.prevOperandText = prevOperandText
+    this.currOperandText = currOperandText
     this.clear()
   }
 
   clear() {
-    this.currentOperand = ""
-    this.previousOperand = ""
+    this.currOperand = ""
+    this.prevOperand = ""
     this.operation = undefined
   }
 
   delete() {
-    this.currentOperand = this.currentOperand.toString().slice(0, -1)
+    this.currOperand = this.currOperand.toString().slice(0, -1)
   }
 
   appendNumber(number) {
-    if (number === "." && this.currentOperand.includes(".")) return
-    this.currentOperand = this.currentOperand.toString() + number.toString()
+    if (number === "." && this.currOperand.includes(".")) return
+    this.currOperand = this.currOperand.toString() + number.toString()
   }
 
   chooseOperation(operation) {
-    if (this.currentOperand === "") return
-    if (this.previousOperand !== "") {
+    if (this.currOperand === "") return
+    if (this.prevOperand !== "") {
       this.compute()
     }
     this.operation = operation
-    this.previousOperand = this.currentOperand
-    this.currentOperand = ""
+    this.prevOperand = this.currOperand
+    this.currOperand = ""
   }
 
   compute() {
     let computation
-    const prev = parseFloat(this.previousOperand)
-    const current = parseFloat(this.currentOperand)
+    const prev = parseFloat(this.prevOperand)
+    const current = parseFloat(this.currOperand)
     if (isNaN(prev) || isNaN(current)) return
     switch (this.operation) {
       case "+":
@@ -51,9 +51,9 @@ export default class Calculator {
       default:
         return
     }
-    this.currentOperand = computation
+    this.currOperand = computation
     this.operation = undefined
-    this.previousOperand = ""
+    this.prevOperand = ""
   }
 
 
@@ -75,13 +75,13 @@ export default class Calculator {
   }
 
   updateDisplay() {
-    this.currentOperandText.innerText =
-      this.getDisplayNumber(this.currentOperand)
+    this.currOperandText.innerText =
+      this.getDisplayNumber(this.currOperand)
     if (this.operation != null) {
-      this.previousOperandText.innerText =
-        `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
+      this.prevOperandText.innerText =
+        `${this.getDisplayNumber(this.prevOperand)} ${this.operation}`
     } else {
-      this.previousOperandText.innerText = ""
+      this.prevOperandText.innerText = ""
     }
   }
 }
@@ -91,10 +91,10 @@ export default class Calculator {
 // const equalsButton = document.querySelector("[data-equal]");
 // const deleteButton = document.querySelector("[data-delete]");
 // const allClearButton = document.querySelector("[data-all-clear]");
-// const previousOperandText = document.querySelector("[data-previous-operand]");
-// const currentOperandText = document.querySelector("[data-current-operand]");
+// const prevOperandText = document.querySelector("[data-previous-operand]");
+// const currOperandText = document.querySelector("[data-current-operand]");
 
-// const calculator = new Calculator(previousOperandText, currentOperandText)
+// const calculator = new Calculator(prevOperandText, currOperandText)
 
 // numberBtns.forEach(button => {
 //   button.addEventListener("click", () => {
