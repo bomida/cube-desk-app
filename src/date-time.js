@@ -26,6 +26,6 @@ export default class DateTime {
 
     hour = String(((hour % 12) || 12)).padStart(2, '0');
     this.timeText.innerText = `${hour}:${minute}`;
-    console.log(`${hour}:${minute}:${second}`);
+    // console.log(`${hour}:${minute}:${second}`);
   }
 }

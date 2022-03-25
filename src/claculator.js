@@ -34,7 +34,7 @@ export default class Calculator {
     let computation
     const prev = parseFloat(this.prevOperand)
     const current = parseFloat(this.currOperand)
-    if (isNaN(prev) || isNaN(current)) return
+    if (isNaN(prev) || isNaN(current)) { return }
     switch (this.operation) {
       case "+":
         computation = prev + current
